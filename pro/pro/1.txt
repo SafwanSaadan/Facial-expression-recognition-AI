@@ -1,0 +1,109 @@
+// Example posting a text URL:
+(async function() {
+    const resp = await fetch('https://api.deepai.org/api/text2img', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+        },
+        body: JSON.stringify({
+            text: "YOUR_TEXT_URL",
+        })
+    });
+    
+    const data = await resp.json();
+    console.log(data);
+})()
+
+
+// Example posting file picker input text (Browser only):
+document.getElementById('yourFileInputId').addEventListener('change', async function() {
+       const formData = new FormData();
+       formData.append('text', this.files[0]);
+
+       const resp = await fetch('https://api.deepai.org/api/text2img', {
+           method: 'POST',
+           headers: {
+               'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+           },
+           body: formData
+       });
+
+       const data = await resp.json();
+       console.log(data);
+});
+
+// Example posting a local text file (Node.js only):
+const fs = require('fs');
+(async function() {
+       const formData = new FormData();
+       const txtFileStream = fs.createReadStream("/path/to/your/file.txt"),
+       formData.append('text', txtFileStream);
+
+       const resp = await fetch('https://api.deepai.org/api/text2img', {
+           method: 'POST',
+           headers: {
+               'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+           },
+           body: formData
+       });
+
+       const data = await resp.json();
+       console.log(data);
+});
+
+// Example directly sending a text string:
+(async function() {
+    const resp = await fetch('https://api.deepai.org/api/text2img', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+        },
+        body: JSON.stringify({
+            text: "YOUR_TEXT_HERE",
+        })
+    });
+    
+    const data = await resp.json();
+    console.log(data);
+})()
+
+
+
+// Example posting a image URL:
+(async function() {
+    const resp = await fetch('https://api.deepai.org/api/image-editor', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+        },
+        body: JSON.stringify({
+            image: "YOUR_IMAGE_URL",
+            text: "YOUR_IMAGE_URL",
+        })
+    });
+    
+    const data = await resp.json();
+    console.log(data);
+})()
+
+
+// Example posting file picker input image (Browser only):
+document.getElementById('yourFileInputId').addEventListener('change', async function() {
+       const formData = new FormData();
+       formData.append('image', this.files[0]);
+       formData.append('text', this.files[1]);
+
+       const resp = await fetch('https://api.deepai.org/api/image-editor', {
+           method: 'POST',
+           headers: {
+               'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'
+           },
+           body: formData
+       });
+
+
+
+

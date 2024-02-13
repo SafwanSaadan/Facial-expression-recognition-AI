@@ -1,0 +1,67 @@
+# Example posting a text URL:
+
+import requests
+r = requests.post(
+    "https://api.deepai.org/api/text2img",
+    data={
+        'text': 'YOUR_TEXT_URL',
+    },
+    headers={'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'}
+)
+print(r.json())
+
+
+# Example posting a local text file:
+
+import requests
+r = requests.post(
+    "https://api.deepai.org/api/text2img",
+    files={
+        'text': open('/path/to/your/file.txt', 'rb'),
+    },
+    headers={'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'}
+)
+print(r.json())
+
+
+# Example directly sending a text string:
+
+import requests
+r = requests.post(
+    "https://api.deepai.org/api/text2img",
+    data={
+        'text': 'YOUR_TEXT_HERE',
+    },
+    headers={'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'}
+)
+print(r.json())
+
+
+
+
+# Example posting a image URL:
+
+import requests
+r = requests.post(
+    "https://api.deepai.org/api/image-editor",
+    data={
+        'image': 'YOUR_IMAGE_URL',
+        'text': 'YOUR_IMAGE_URL',
+    },
+    headers={'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'}
+)
+print(r.json())
+
+
+# Example posting a local image file:
+
+import requests
+r = requests.post(
+    "https://api.deepai.org/api/image-editor",
+    files={
+        'image': open('/path/to/your/file.jpg', 'rb'),
+        'text': open('/path/to/your/file.txt', 'rb'),
+    },
+    headers={'api-key': '7e8555d3-9d49-48ec-b987-c3e473f37d21'}
+)
+print(r.json())

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepAI Text to Image</title>
+</head>
+<body>
+    <h1>DeepAI Text to Image</h1>
+    
+    <!-- Form for posting a text URL -->
+    <form id="textUrlForm">
+        <label for="textUrl">Enter Text URL:</label><br>
+        <input type="text" id="textUrl" name="textUrl"><br>
+        <button type="button" onclick="postTextUrl()">Submit</button>
+    </form>
+
+    <!-- Form for posting a local text file (Browser only) -->
+    <form id="localTextFileForm">
+        <label for="localTextFile">Choose a text file:</label><br>
+        <input type="file" id="localTextFile" name="localTextFile"><br>
+        <button type="button" onclick="postLocalTextFile()">Submit</button>
+    </form>
+
+    <!-- Output result -->
+    <div id="result"></div>
+
+    <script>
+        const apiKey = '7e8555d3-9d49-48ec-b987-c3e473f37d21';
+
+        async function postTextUrl() {
+            const textUrl = document.getElementById('textUrl').value;
+            const resp = await fetch('https://api.deepai.org/api/text2img', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': apiKey
+                },
+                body: JSON.stringify({
+                    text: textUrl,
+                })
+            });
+            const data = await resp.json();
+            document.getElementById('result').innerHTML = `<img src="${data.output_url}" alt="Processed Image">`;
+        }
+
+        async function postLocalTextFile() {
+            const formData = new FormData();
+            const fileInput = document.getElementById('localTextFile');
+            formData.append('text', fileInput.files[0]);
+            const resp = await fetch('https://api.deepai.org/api/text2img', {
+                method: 'POST',
+                headers: {
+                    'api-key': apiKey
+                },
+                body: formData
+            });
+            const data = await resp.json();
+            document.getElementById('result').innerHTML = `<img src="${data.output_url}" alt="Processed Image">`;
+        }
+    </script>
+</body>
+</html>
